@@ -3,6 +3,11 @@
 
     {% block content %}
         <h1>Welcome to the PhoneGuardian web server!</h1>
+
+        <form method="POST" action="{{ url_for('search_number') }}" >
+            <input type="text" name="phone_number" placeholder="Enter a phone number here"><br>
+            <input type="submit" value="Search">
+        </form>
     {% endblock %}
 
 </html>
