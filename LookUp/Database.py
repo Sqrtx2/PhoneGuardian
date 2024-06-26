@@ -42,7 +42,31 @@ try:
                    """)
 except Exception as ex:
     print(ex)
+
+try:
+    # Caller provider table
+    cursor.execute("""
+                CREATE TABLE providers (
+                key VARCHAR(255) PRIMARY KEY,
+                    provider TEXT
+                )
+                """)
     
+    cursor.execute("""
+                    INSERT INTO providers VALUES
+                    ('05041', 'Pelephone'),
+                    ('05271', 'Cellcom'),
+                    ('05276', 'Cellcom'),
+                    ('05331', 'Hot mobile'),
+                    ('05341', 'Hot mobile'),
+                    ('05484', 'Partner'),
+                    ('05485', 'Partner'),
+                    ('05832', 'Golan telecom'),
+                    ('05567', 'Rami Levi communications'),
+                    ('07229', '012 smile (Partner)')
+                    """)
+except Exception as ex:
+    print(ex)
 
 
 ''' 

@@ -33,7 +33,26 @@ def search_flagged(pnumber):
         return result[0]
     else:
         return None
+    
+def search_provider(pnumber):
+    db_path = "LookUp/PhoneNumber.db"
+    connection = sqlite3.connect(db_path)
+    cursor = connection.cursor()
+
+    search_key = pnumber[0:5]
+    print(search_key)
+    cursor.execute( "SELECT provider FROM providers WHERE key = ?", (search_key,))
+
+    result = cursor.fetchone()
+
+    if result:
+        return result[0]
+    elif pnumber[2:4] == "80":
+        # Bezeg has a unique identifier which is why it is not in the database
+        return "Bezeq"
+    else:
+        return None
 
 def search(pnumber):
-    caller_identity = Identity(search_location(pnumber), search_flagged(pnumber))
+    caller_identity = Identity(search_location(pnumber), search_flagged(pnumber), search_provider(pnumber))
     return str(caller_identity)
