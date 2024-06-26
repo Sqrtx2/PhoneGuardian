@@ -17,7 +17,10 @@ try:
                     area TEXT
                 )
                 """)
-    
+except Exception as ex:
+    print(ex)
+
+try:
     cursor.execute("""
                     INSERT INTO location VALUES
                     ('02', 'Jerusalem'),
@@ -36,6 +39,9 @@ try:
                    pnumber VARCHAR(255) PRIMARY KEY
                    )
                    """)
+except Exception as ex:
+    print(ex)
+try:
     cursor.execute("""
                    INSERT INTO flagged VALUES
                    ('0543462329')
@@ -51,19 +57,18 @@ try:
                     provider TEXT
                 )
                 """)
-    
+except Exception as ex:
+    print(ex)
+
+try:
     cursor.execute("""
                     INSERT INTO providers VALUES
-                    ('05041', 'Pelephone'),
-                    ('05271', 'Cellcom'),
-                    ('05276', 'Cellcom'),
-                    ('05331', 'Hot mobile'),
-                    ('05341', 'Hot mobile'),
-                    ('05484', 'Partner'),
-                    ('05485', 'Partner'),
-                    ('05832', 'Golan telecom'),
-                    ('05567', 'Rami Levi communications'),
-                    ('07229', '012 smile (Partner)')
+                    ('050', 'Pelephone'),
+                    ('052', 'Cellcom'),
+                    ('053', 'Hot mobile'),
+                    ('057', 'Hot mobile'),
+                    ('054', 'Partner'),
+                    ('058', 'Golan telecom')
                     """)
 except Exception as ex:
     print(ex)

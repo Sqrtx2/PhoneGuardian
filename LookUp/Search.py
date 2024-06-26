@@ -39,7 +39,7 @@ def search_provider(pnumber):
     connection = sqlite3.connect(db_path)
     cursor = connection.cursor()
 
-    search_key = pnumber[0:5]
+    search_key = pnumber[:3]
     print(search_key)
     cursor.execute( "SELECT provider FROM providers WHERE key = ?", (search_key,))
 

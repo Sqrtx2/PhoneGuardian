@@ -18,6 +18,8 @@ def search_number():
     try:
         if 'phone_number' in request.form.keys():
             pnumber = request.form['phone_number']
+            if pnumber[0:4] == "+972":
+                pnumber = "0" + pnumber[4:]
             print(search(pnumber))
             response = search(pnumber)
             response_html = response.replace('\n', '<br>')
@@ -30,6 +32,11 @@ def search_number():
 @site.route('/search_via_url/<phonenumber>')
 def search_number_via_url(phonenumber):
     try:
+        print(phonenumber)
+        # I need to find a way to get all the phone numbers in the same standard instead of using this if block
+        if phonenumber[0:4] == "+972":
+            phonenumber = "0" + phonenumber[4:]
+        print("sliced number", phonenumber)
         response = search(phonenumber)
         return response, 200, {'Content-Type': 'text/plain'}
     except:
