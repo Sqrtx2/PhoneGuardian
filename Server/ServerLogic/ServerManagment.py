@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 import os
+import sqlite3
 from LookUp.Search import search
 
 
@@ -41,7 +42,33 @@ def search_number_via_url(phonenumber):
         return response, 200, {'Content-Type': 'text/plain'}
     except:
         return "Please provide a valid phone number", 500 ,{'Content-Type': 'text/html'}
+    
+@site.route('/flag_via_url/<phonenumber>')
+def flag_number_via_url(phonenumber):
+    try:
+        print(phonenumber)
+        # I need to find a way to get all the phone numbers in the same standard instead of using this if block
+        if phonenumber[0:4] == "+972":
+            phonenumber = "0" + phonenumber[4:]
+        print("sliced number", phonenumber)
+        insert_flagged(phonenumber)
+        response = "The given phone number has been flagged successfully"
+        return response, 200, {'Content-Type': 'text/plain'}
+    except:
+        return "Please provide a valid phone number", 500 ,{'Content-Type': 'text/html'}
 
+def insert_flagged(pnumber):
+    try:
+        db_path = "LookUp/PhoneNumber.db"
+        connection = sqlite3.connect(db_path)
+        cursor = connection.cursor()
+
+        cursor.execute("INSERT INTO flagged (pnumber) VALUES (?)", (pnumber,))
+    except Exception as ex:
+        print(ex)
+
+    connection.commit()
+    connection.close()
 
 if __name__ == "__main__":
     context = ('Server/ServerLogic/SSL_certificate/cert.pem', 'Server/ServerLogic/SSL_certificate/key.pem') # certificate and key files
